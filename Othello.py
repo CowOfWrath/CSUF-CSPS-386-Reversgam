@@ -16,15 +16,15 @@ HEIGHT = 8
 
 # outputs the current board state
 def draw_board(board):
-    print('  12345678')
-    print(' +--------+')
+    print('   1 2 3 4 5 6 7 8')
+    print(' + - - - - - - - - +')
     for y in range(HEIGHT):
-        print('%s|' % (y + 1), end='')
+        print('%s| ' % chr(ord('A') + y), end='')
         for x in range(WIDTH):
-            print(board[x][y], end='')
-        print('|%s' % (y + 1))
-    print(' +--------+')
-    print('  12345678')
+            print(board[x][y] + ' ', end='')
+        print('|%s' % chr(ord('A') + y))
+    print(' + - - - - - - - - +')
+    print('   1 2 3 4 5 6 7 8')
 
 
 # create blank board data structure
@@ -159,7 +159,8 @@ def is_on_corner(x, y):
 
 
 def get_player_move(board, player_tile):
-    DIGITS_1_TO_8 = '1 2 3 4 5 6 7 8'.split()
+    DIGIT_1_TO_8 = '1 2 3 4 5 6 7 8'.split()
+    ALPHA_A_TO_H = 'A B C D E F G H'.split()
 
     while True:
         print('Enter your move, "quit" to end the game, or "hints" to toggle hints.')
@@ -167,16 +168,23 @@ def get_player_move(board, player_tile):
         if move == 'quit' or move == 'hints':
             return move
 
-        if len(move) == 2 and move[0] in DIGITS_1_TO_8 and move[1] in DIGITS_1_TO_8:
+        if len(move) == 2 and move[0] in DIGIT_1_TO_8 and move[1].upper() in ALPHA_A_TO_H:
             x = int(move[0]) - 1
-            y = int(move[1]) - 1
+            y = int(ord(move[1].upper()) - ord('A'))
+            if is_valid_move(board, player_tile, x, y) == False:
+                continue
+            else:
+                break
+        elif len(move) == 2 and move[1] in DIGIT_1_TO_8 and move[0].upper() in ALPHA_A_TO_H:
+            x = int(move[1]) - 1
+            y = int(ord(move[0].upper()) - ord('A'))
             if is_valid_move(board, player_tile, x, y) == False:
                 continue
             else:
                 break
         else:
-            print('That is not a valid move. Enter the column (1-8) and then the row (1-8).')
-            print('For example, 81 will move on the top-right corner.')
+            print('That is not a valid move. Enter a row (A-H) and a column (1-8).')
+            print('For example, A1 or 1a will move on the top-left corner.')
 
     return [x, y]
 
