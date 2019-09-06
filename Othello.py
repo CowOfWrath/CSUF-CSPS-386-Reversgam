@@ -268,24 +268,28 @@ def play_game(player_tile, computer_tile):
 
 
 # game run code
-print('Welcome to Reversegam!')
-player_tile, computer_tile = enter_player_tile()
+def play():
+    print('Welcome to Reversegam!')
+    player_tile, computer_tile = enter_player_tile()
 
-while True:
-    final_board = play_game(player_tile, computer_tile)
-    draw_board(final_board)
-    scores = get_score_of_board(final_board)
-    print('X scored %s points. O scored %s points.' % (scores['X'], scores['O']))
+    while True:
+        final_board = play_game(player_tile, computer_tile)
+        draw_board(final_board)
+        scores = get_score_of_board(final_board)
+        print('X scored %s points. O scored %s points.' % (scores['X'], scores['O']))
 
-    if scores[player_tile] > scores[computer_tile]:
-        print('You beat the computer by %s points! Congratulations!'
-              % (scores[player_tile] - scores[computer_tile]))
-    elif scores[player_tile] < scores[computer_tile]:
-        print('You lost. The computer beat you by %s points.'
-              % (scores[computer_tile] - scores[player_tile]))
-    else:
-        print('The game was a tie!')
+        if scores[player_tile] > scores[computer_tile]:
+            print('You beat the computer by %s points! Congratulations!'
+                  % (scores[player_tile] - scores[computer_tile]))
+        elif scores[player_tile] < scores[computer_tile]:
+            print('You lost. The computer beat you by %s points.'
+                  % (scores[computer_tile] - scores[player_tile]))
+        else:
+            print('The game was a tie!')
 
-    print('Do you want to play again! (yes or no)')
-    if not input().lower().startswith('y'):
-        break
+        print('Do you want to play again! (yes or no)')
+        if not input().lower().startswith('y'):
+            break
+
+
+play()
