@@ -251,7 +251,7 @@ def play_game(player_tile, computer_tile):
                 draw_board(board)
                 print_score(board, player_tile, computer_tile)
 
-                # input('Press Enter to see the computer\'s move.')
+                input('Press Enter to see the computer\'s move.')
 
                 move = get_computer_move(board, computer_tile)
                 make_move(board, computer_tile, move[0], move[1])
